@@ -1,16 +1,38 @@
-// Your code will go here
+let puffin;
+let classifier;
 
-// Open up your console - if everything loaded properly you should see the version number
-// corresponding to the latest version of ml5 printed to the console and in the p5.js canvas.
+// if everything loaded properly you should see the version number
 console.log("ml5 version:", ml5.version);
 
 function setup() {
-  createCanvas(400, 400);
+  //Create an image classifier with MobileNet, calls onModelReady callback once loaded
+  classifier = ml5.imageClassifier("MobileNet", onModelReady);
+  //loads image, calls imageReady callback once loaded
+  puffin = createImg("images/puffin.jpg", imageReady);
+  puffin.hide();
+  //Create the canvas
+  createCanvas(640, 480);
   textSize(width / 3);
   textAlign(CENTER, CENTER);
 }
 
-function draw() {
-  background(200);
-  text(ml5.version, width / 2, height / 2);
+//- - - HELPER FUNCTIONS - - -
+
+//give console output once model ready
+function onModelReady() {
+  console.log("Model is ready");
+  classifier.classify(puffin, gotResults);
+}
+
+//
+function imageReady() {
+  image(puffin, 0, 0, width, height);
+}
+
+function gotResults(err, results) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log(results);
+  }
 }
