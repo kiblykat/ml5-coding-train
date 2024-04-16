@@ -34,5 +34,9 @@ function gotResults(err, results) {
     console.log(err);
   } else {
     console.log(results);
+    let label = results[0].label;
+    fill(0);
+    textSize(64);
+    text(label, 100, height - 100);
   }
 }
