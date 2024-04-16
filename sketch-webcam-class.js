@@ -35,7 +35,8 @@ function gotResults(err, results) {
     // console.log(results);
     background(0);
 
-    let label = results[0].label;
+    let label = results[0].label.split(",")[0];
+    console.log(label);
     fill(255);
     textSize(32);
     text(label, 10, height - 20);
